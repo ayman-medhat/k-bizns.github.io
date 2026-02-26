@@ -1,0 +1,198 @@
+
+  Dropping all tables .......................................... 387.46ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ...................................... 30.48ms DONE
+
+   INFO  Running migrations.  
+
+  0001_01_01_000000_create_users_table ......................... 131.66ms DONE
+  0001_01_01_000001_create_cache_table .......................... 90.50ms DONE
+  0001_01_01_000002_create_jobs_table .......................... 120.39ms DONE
+  2026_02_15_140000_create_companies_table ...................... 22.21ms DONE
+  2026_02_15_140001_create_contacts_table ...................... 147.20ms DONE
+  2026_02_15_140002_create_deals_table ......................... 109.16ms DONE
+  2026_02_15_140003_create_activities_table .................... 142.32ms DONE
+  2026_02_15_194932_create_industries_table ..................... 30.15ms DONE
+  2026_02_15_195518_create_contact_papers_table ................ 113.62ms DONE
+  2026_02_15_195522_add_photo_to_contacts_table ................. 58.15ms DONE
+  2026_02_15_200000_create_countries_table ...................... 24.26ms DONE
+  2026_02_15_200001_create_cities_table ........................ 117.02ms DONE
+  2026_02_15_200002_create_addresses_table ..................... 323.63ms DONE
+  2026_02_15_200003_update_contacts_table ...................... 973.61ms DONE
+  2026_02_15_210000_add_details_to_companies_table ............. 799.97ms DONE
+  2026_02_15_212500_make_street_nullable_in_addresses_table ..... 74.72ms DONE
+  2026_02_15_213000_make_national_id_unique_in_contacts_table .. 119.36ms DONE
+  2026_02_15_220000_add_phone_code_to_countries_table ........... 84.23ms DONE
+  2026_02_15_220001_add_phone_country_id_to_contacts_table ..... 250.56ms DONE
+  2026_02_16_000200_add_status_to_companies_table ............... 96.00ms DONE
+  2026_02_16_000300_make_address_fields_nullable ............... 163.73ms DONE
+  2026_02_17_110000_create_company_infos_table .................. 68.91ms DONE
+  2026_02_20_223608_add_is_root_to_users_table .................. 83.91ms DONE
+  2026_02_24_222618_rename_companies_to_clients_table ........... 72.36ms DONE
+  2026_02_24_222930_rename_company_id_to_client_id_in_tables .... 64.34ms DONE
+  2026_02_24_223107_create_companies_table ...................... 40.32ms DONE
+  2026_02_24_223125_create_subscription_plans_table ............. 30.23ms DONE
+  2026_02_24_223126_create_company_subscriptions_table ......... 190.04ms DONE
+  2026_02_24_223201_add_company_id_to_business_tables .......... 698.53ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42000]: Syntax error or access violation: 1061 Duplicate key name 'contacts_company_id_foreign' (Connection: mysql, Host: mysql, Port: 3306, Database: k-bizns, SQL: alter table `contacts` add constraint `contacts_company_id_foreign` foreign key (`company_id`) references `companies` (`id`) on delete cascade)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:838
+    834▕             $exceptionType = $this->isUniqueConstraintError($e)
+    835▕                 ? UniqueConstraintViolationException::class
+    836▕                 : QueryException::class;
+    837▕ 
+  ➜ 838▕             throw new $exceptionType(
+    839▕                 $this->getNameWithReadWriteType(),
+    840▕                 $query,
+    841▕                 $this->prepareBindings($bindings),
+    842▕                 $e,
+
+  1   vendor/laravel/framework/src/Illuminate/Database/Connection.php:584
+      PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1061 Duplicate key name 'contacts_company_id_foreign'")
+
+  2   vendor/laravel/framework/src/Illuminate/Database/Connection.php:584
+      PDOStatement::execute()
+
+  3   vendor/laravel/framework/src/Illuminate/Database/Connection.php:827
+      Illuminate\Database\Connection::{closure:Illuminate\Database\Connection::statement():573}()
+
+  4   vendor/laravel/framework/src/Illuminate/Database/Connection.php:794
+      Illuminate\Database\Connection::runQueryCallback()
+
+  5   vendor/laravel/framework/src/Illuminate/Database/Connection.php:573
+      Illuminate\Database\Connection::run()
+
+  6   vendor/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php:121
+      Illuminate\Database\Connection::statement()
+
+  7   vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php:686
+      Illuminate\Database\Schema\Blueprint::build()
+
+  8   vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php:494
+      Illuminate\Database\Schema\Builder::build()
+
+  9   vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:363
+      Illuminate\Database\Schema\Builder::table()
+
+  10  database/migrations/2026_02_24_223201_add_company_id_to_business_tables.php:33
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+  11  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:517
+      Illuminate\Database\Migrations\Migration@anonymous\/var/www/html/database/migrations/2026_02_24_223201_add_company_id_to_business_tables.php:7$148::up()
+
+  12  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:442
+      Illuminate\Database\Migrations\Migrator::runMethod()
+
+  13  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:451
+      Illuminate\Database\Migrations\Migrator::{closure:Illuminate\Database\Migrations\Migrator::runMigration():438}()
+
+  14  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:253
+      Illuminate\Database\Migrations\Migrator::runMigration()
+
+  15  vendor/laravel/framework/src/Illuminate/Console/View/Components/Task.php:41
+      Illuminate\Database\Migrations\Migrator::{closure:Illuminate\Database\Migrations\Migrator::runUp():253}()
+
+  16  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:814
+      Illuminate\Console\View\Components\Task::render()
+
+  17  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:253
+      Illuminate\Database\Migrations\Migrator::write()
+
+  18  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:211
+      Illuminate\Database\Migrations\Migrator::runUp()
+
+  19  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:138
+      Illuminate\Database\Migrations\Migrator::runPending()
+
+  20  vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:116
+      Illuminate\Database\Migrations\Migrator::run()
+
+  21  vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:671
+      Illuminate\Database\Console\Migrations\MigrateCommand::{closure:Illuminate\Database\Console\Migrations\MigrateCommand::runMigrations():109}()
+
+  22  vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:109
+      Illuminate\Database\Migrations\Migrator::usingConnection()
+
+  23  vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:88
+      Illuminate\Database\Console\Migrations\MigrateCommand::runMigrations()
+
+  24  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:36
+      Illuminate\Database\Console\Migrations\MigrateCommand::handle()
+
+  25  vendor/laravel/framework/src/Illuminate/Container/Util.php:43
+      Illuminate\Container\BoundMethod::{closure:Illuminate\Container\BoundMethod::call():35}()
+
+  26  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:96
+      Illuminate\Container\Util::unwrapIfClosure()
+
+  27  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:35
+      Illuminate\Container\BoundMethod::callBoundMethod()
+
+  28  vendor/laravel/framework/src/Illuminate/Container/Container.php:799
+      Illuminate\Container\BoundMethod::call()
+
+  29  vendor/laravel/framework/src/Illuminate/Console/Command.php:211
+      Illuminate\Container\Container::call()
+
+  30  vendor/symfony/console/Command/Command.php:341
+      Illuminate\Console\Command::execute()
+
+  31  vendor/laravel/framework/src/Illuminate/Console/Command.php:180
+      Symfony\Component\Console\Command\Command::run()
+
+  32  vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php:68
+      Illuminate\Console\Command::run()
+
+  33  vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php:29
+      Illuminate\Console\Command::runCommand()
+
+  34  vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/FreshCommand.php:81
+      Illuminate\Console\Command::call()
+
+  35  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:36
+      Illuminate\Database\Console\Migrations\FreshCommand::handle()
+
+  36  vendor/laravel/framework/src/Illuminate/Container/Util.php:43
+      Illuminate\Container\BoundMethod::{closure:Illuminate\Container\BoundMethod::call():35}()
+
+  37  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:96
+      Illuminate\Container\Util::unwrapIfClosure()
+
+  38  vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:35
+      Illuminate\Container\BoundMethod::callBoundMethod()
+
+  39  vendor/laravel/framework/src/Illuminate/Container/Container.php:799
+      Illuminate\Container\BoundMethod::call()
+
+  40  vendor/laravel/framework/src/Illuminate/Console/Command.php:211
+      Illuminate\Container\Container::call()
+
+  41  vendor/symfony/console/Command/Command.php:341
+      Illuminate\Console\Command::execute()
+
+  42  vendor/laravel/framework/src/Illuminate/Console/Command.php:180
+      Symfony\Component\Console\Command\Command::run()
+
+  43  vendor/symfony/console/Application.php:1102
+      Illuminate\Console\Command::run()
+
+  44  vendor/symfony/console/Application.php:356
+      Symfony\Component\Console\Application::doRunCommand()
+
+  45  vendor/symfony/console/Application.php:195
+      Symfony\Component\Console\Application::doRun()
+
+  46  vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php:198
+      Symfony\Component\Console\Application::run()
+
+  47  vendor/laravel/framework/src/Illuminate/Foundation/Application.php:1235
+      Illuminate\Foundation\Console\Kernel::handle()
+
+  48  artisan:16
+      Illuminate\Foundation\Application::handleCommand()
+

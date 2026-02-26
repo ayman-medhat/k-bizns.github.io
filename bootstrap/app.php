@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->web(append: [
+            \App\Http\Middleware\SetThemeMiddleware::class,
+            \App\Http\Middleware\SetLocale::class,
+            \App\Http\Middleware\TenantMiddleware::class,
+        ]);
+
+        $middleware->alias([
+            'feature' => \App\Http\Middleware\CheckFeature::class,
+            'limit' => \App\Http\Middleware\EnforceLimit::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
