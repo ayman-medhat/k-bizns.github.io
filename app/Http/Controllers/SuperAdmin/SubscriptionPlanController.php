@@ -32,7 +32,7 @@ class SubscriptionPlanController extends Controller
 
         SubscriptionPlan::create($request->all());
 
-        return redirect()->route('super-admin.plans.index')->with('success', 'Plan created successfully.');
+        return redirect()->route('super-admin.plans.index')->with('success', __('messages.plan_created_successfully'));
     }
 
     public function edit(SubscriptionPlan $plan)
@@ -52,6 +52,6 @@ class SubscriptionPlanController extends Controller
 
         $plan->update($request->all());
 
-        return redirect()->route('super-admin.plans.index')->with('success', 'Plan updated successfully.');
+        return redirect()->route('super-admin.plans.index')->with('success', __('messages.plan_updated_successfully'));
     }
 }

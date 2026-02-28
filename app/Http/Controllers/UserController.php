@@ -26,8 +26,8 @@ class UserController extends Controller
     {
         $roles = Role::whereNotIn('name', ['Super Admin'])->get();
         $managers = User::all(); // Scoped by TenantScope
-
-        return view('users.create', compact('roles', 'managers'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('users.create', compact('roles', 'managers', 'companies'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -45,20 +45,21 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => \Hash::make($validated['password']),
             'manager_id' => $validated['manager_id'],
+            'company_id' => $validated['company_id'] ?? (auth()->user()->company_id ?? null),
         ]);
 
         $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')
-            ->with('success', 'User created successfully.');
+            ->with('success', __('messages.user_created_successfully'));
     }
 
     public function edit(User $user): View
     {
         $roles = Role::whereNotIn('name', ['Super Admin'])->get();
         $managers = User::where('id', '!=', $user->id)->get();
-
-        return view('users.edit', compact('user', 'roles', 'managers'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('users.edit', compact('user', 'roles', 'managers', 'companies'));
     }
 
     public function update(Request $request, User $user): RedirectResponse
@@ -74,12 +75,13 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'manager_id' => $validated['manager_id'],
+            'company_id' => $validated['company_id'] ?? ($user->company_id),
         ]);
 
         $user->syncRoles([$validated['role']]);
 
         return redirect()->route('users.index')
-            ->with('success', 'User updated successfully.');
+            ->with('success', __('messages.user_updated_successfully'));
     }
 
     public function destroy(User $user): RedirectResponse
@@ -87,6 +89,6 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully.');
+            ->with('success', __('messages.user_deleted_successfully'));
     }
 }

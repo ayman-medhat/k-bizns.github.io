@@ -31,8 +31,8 @@ class ClientController extends Controller
     {
         $industries = \App\Models\Industry::all();
         $countries = \App\Models\Country::with('cities')->get();
-
-        return view('clients.create', compact('industries', 'countries'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('clients.create', compact('industries', 'countries', 'companies'));
     }
 
     /**
@@ -71,15 +71,18 @@ class ClientController extends Controller
             $validated['address_id'] = $address->id;
         }
 
-        // Mapping address_street to address field for backward compatibility or simple display if needed
         if (isset($validated['address_street'])) {
             $validated['address'] = $validated['address_street'];
+        }
+
+        if (auth()->user()->hasRole('Super Admin') && $request->filled('company_id')) {
+            $validated['company_id'] = $request->company_id;
         }
 
         Client::create($validated);
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client created successfully.');
+            ->with('success', __('messages.client_created_successfully'));
     }
 
     /**
@@ -97,8 +100,8 @@ class ClientController extends Controller
     {
         $industries = \App\Models\Industry::all();
         $countries = \App\Models\Country::with('cities')->get();
-
-        return view('clients.edit', compact('client', 'industries', 'countries'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('clients.edit', compact('client', 'industries', 'countries', 'companies'));
     }
 
     /**
@@ -153,7 +156,7 @@ class ClientController extends Controller
         $client->update($validated);
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client updated successfully.');
+            ->with('success', __('messages.client_updated_successfully'));
     }
 
     /**
@@ -164,7 +167,7 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client deleted successfully.');
+            ->with('success', __('messages.client_deleted_successfully'));
     }
 
     public function kanban(): View

@@ -21,12 +21,11 @@ class DealController extends Controller
 
         return view('deals.index', compact('deals'));
     }
-
     public function create(): View
     {
         $clients = Client::all();
-
-        return view('deals.create', compact('clients'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('deals.create', compact('clients', 'companies'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -38,22 +37,25 @@ class DealController extends Controller
             'client_id' => 'required|exists:clients,id',
         ]);
 
+        if (auth()->user()->hasRole('Super Admin') && $request->filled('company_id')) {
+            $validated['company_id'] = $request->company_id;
+        }
+
         Deal::create($validated);
 
         return redirect()->route('deals.index')
-            ->with('success', 'Deal created successfully.');
+            ->with('success', __('messages.deal_created_successfully'));
     }
 
     public function show(Deal $deal): View
     {
         return view('deals.show', compact('deal'));
     }
-
     public function edit(Deal $deal): View
     {
         $clients = Client::all();
-
-        return view('deals.edit', compact('deal', 'clients'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('deals.edit', compact('deal', 'clients', 'companies'));
     }
 
     public function update(Request $request, Deal $deal): RedirectResponse
@@ -65,10 +67,14 @@ class DealController extends Controller
             'client_id' => 'required|exists:clients,id',
         ]);
 
+        if (auth()->user()->hasRole('Super Admin') && $request->filled('company_id')) {
+            $validated['company_id'] = $request->company_id;
+        }
+
         $deal->update($validated);
 
         return redirect()->route('deals.index')
-            ->with('success', 'Deal updated successfully.');
+            ->with('success', __('messages.deal_updated_successfully'));
     }
 
     public function destroy(Deal $deal): RedirectResponse
@@ -76,7 +82,7 @@ class DealController extends Controller
         $deal->delete();
 
         return redirect()->route('deals.index')
-            ->with('success', 'Deal deleted successfully.');
+            ->with('success', __('messages.deal_deleted_successfully'));
     }
 
     public function kanban(): View

@@ -3,7 +3,10 @@
 
     <div>
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-light" style="color: var(--title-color);">{{ __('messages.all_contacts') }}</h3>
+            <h3
+                style="font-size: 1.5rem; font-weight: 350; color: var(--title-color); border-bottom: 2px dotted var(--nav-border); padding-bottom: 0.4rem;">
+                {{ __('messages.all_contacts') }}
+            </h3>
             <div class="flex gap-3">
                 <a href="{{ route('contacts.kanban') }}" title="{{ __('messages.kanban_view') }}"
                     style="color: var(--btn-text); font-size: 1.4rem; transition: all 0.2s;"
@@ -81,16 +84,20 @@
                         </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
-                            {{ __('messages.name') }}</th>
+                            {{ __('messages.name') }}
+                        </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
-                            {{ __('messages.email') }}</th>
+                            {{ __('messages.email') }}
+                        </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
-                            {{ __('messages.phone') }}</th>
+                            {{ __('messages.phone') }}
+                        </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
-                            {{ __('messages.company') }}</th>
+                            {{ __('messages.company') }}
+                        </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border); border-radius: {{ app()->getLocale() == 'ar' ? '1.5rem 0 0 1.5rem' : '0 1.5rem 1.5rem 0' }};">
                             {{ __('messages.actions') }}
@@ -121,10 +128,12 @@
                             </td>
                             <td class="py-3 px-4"
                                 style="color: var(--text-color); border-bottom: 1px solid var(--row-border); opacity: 0.9;">
-                                {{ $contact->email }}</td>
+                                {{ $contact->email }}
+                            </td>
                             <td class="py-3 px-4"
                                 style="color: var(--text-color); border-bottom: 1px solid var(--row-border); opacity: 0.9;">
-                                {{ $contact->full_phone }}</td>
+                                {{ $contact->full_phone }}
+                            </td>
                             <td class="py-3 px-4" style="border-bottom: 1px solid var(--row-border);">
                                 @if($contact->company)
                                     <a href="{{ route('clients.show', $contact->company) }}"

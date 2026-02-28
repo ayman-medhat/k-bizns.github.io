@@ -26,8 +26,8 @@ class ContactController extends Controller
     {
         $clients = Client::all();
         $countries = \App\Models\Country::with('cities')->get();
-
-        return view('contacts.create', compact('clients', 'countries'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('contacts.create', compact('clients', 'countries', 'companies'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,6 +52,7 @@ class ContactController extends Controller
             'address_notes' => 'nullable|string',
             'photo_path' => 'nullable|image|max:2048', // 2MB Max
             'papers.*' => 'nullable|file|mimes:pdf|max:10240', // 10MB Max per file
+            'company_id' => 'nullable|exists:companies,id',
         ]);
 
         // Handle Photo Upload
@@ -71,6 +72,10 @@ class ContactController extends Controller
             $validated['address_id'] = $address->id;
         }
 
+        if (auth()->user()->hasRole('Super Admin') && $request->filled('company_id')) {
+            $validated['company_id'] = $request->company_id;
+        }
+
         $contact = Contact::create($validated);
 
         // Handle Papers Upload
@@ -85,7 +90,7 @@ class ContactController extends Controller
         }
 
         return redirect()->route('contacts.index')
-            ->with('success', 'Contact created successfully.');
+            ->with('success', __('messages.contact_created_successfully'));
     }
 
     public function show(Contact $contact): View
@@ -97,8 +102,8 @@ class ContactController extends Controller
     {
         $clients = Client::all();
         $countries = \App\Models\Country::with('cities')->get();
-
-        return view('contacts.edit', compact('contact', 'clients', 'countries'));
+        $companies = auth()->user()->hasRole('Super Admin') ? \App\Models\Company::all() : collect();
+        return view('contacts.edit', compact('contact', 'clients', 'countries', 'companies'));
     }
 
     public function update(Request $request, Contact $contact): RedirectResponse
@@ -123,6 +128,7 @@ class ContactController extends Controller
             'address_notes' => 'nullable|string',
             'photo_path' => 'nullable|image|max:2048',
             'papers.*' => 'nullable|file|mimes:pdf|max:10240',
+            'company_id' => 'nullable|exists:companies,id',
         ]);
 
         // Handle Photo Upload
@@ -155,6 +161,10 @@ class ContactController extends Controller
             }
         }
 
+        if (auth()->user()->hasRole('Super Admin') && $request->filled('company_id')) {
+            $validated['company_id'] = $request->company_id;
+        }
+
         $contact->update($validated);
 
         // Handle Papers Upload (Append)
@@ -176,7 +186,7 @@ class ContactController extends Controller
         }
 
         return redirect()->route('contacts.index')
-            ->with('success', 'Contact updated successfully.');
+            ->with('success', __('messages.contact_updated_successfully'));
     }
 
     public function destroy(Contact $contact): RedirectResponse
@@ -184,7 +194,7 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->route('contacts.index')
-            ->with('success', 'Contact deleted successfully.');
+            ->with('success', __('messages.contact_deleted_successfully'));
     }
 
     public function kanban(): View

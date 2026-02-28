@@ -195,7 +195,7 @@
                             $navHover = "this.style.background='var(--accent-bg)'; this.style.color='var(--accent-text)'; this.style.borderColor='var(--accent-border)';";
                             $navOut = "this.style.background='var(--nav-link-bg)'; this.style.color='var(--nav-link-color)'; this.style.borderColor='transparent';";
                         @endphp
-                        <div class="hidden lg:flex items-center gap-1 ml-4">
+                        <div class="hidden lg:flex items-center gap-1.5 ml-4">
                             <a href="{{ route('dashboard') }}" style="{{ $navStyle }}" onmouseover="{{ $navHover }}"
                                 onmouseout="{{ $navOut }}" class="flex items-center">
                                 {{ __('messages.dashboard') }}
@@ -216,25 +216,29 @@
                                 onmouseout="{{ $navOut }}" class="flex items-center">
                                 {{ __('messages.kanban') }}
                             </a>
+                            <a href="{{ route('users.index') }}" style="{{ $navStyle }}" onmouseover="{{ $navHover }}"
+                                onmouseout="{{ $navOut }}" class="flex items-center">
+                                {{ __('messages.users') }}
+                            </a>
                             @can('manage company')
-                                <a href="{{ route('super-admin.clients.index') }}" style="{{ $navStyle }}"
+                                <a href="{{ route('super-admin.companies.index') }}" style="{{ $navStyle }}"
                                     onmouseover="{{ $navHover }}" onmouseout="{{ $navOut }}" class="flex items-center">
                                     Super Admin
                                 </a>
                             @endcan
-                            <a href="{{ route('company-settings.index') }}" style="{{ $navStyle }}"
-                                onmouseover="{{ $navHover }}" onmouseout="{{ $navOut }}" class="flex items-center">
-                                {{ __('messages.company_settings') }}
-                            </a>
                         </div>
                     </div>
 
                     <!-- Right: Utilities + Hamburger -->
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-1.5">
 
                         <!-- Desktop utilities -->
-                        <div class="hidden lg:flex items-center gap-1">
+                        <div class="hidden lg:flex items-center gap-1.5">
                             @auth
+                                <a href="{{ route('company-settings.index') }}" style="{{ $navStyle }}"
+                                    onmouseover="{{ $navHover }}" onmouseout="{{ $navOut }}" class="flex items-center">
+                                    {{ __('messages.company_settings') }}
+                                </a>
                                 <a href="{{ route('company-info.show') }}" style="{{ $navStyle }}"
                                     onmouseover="{{ $navHover }}" onmouseout="{{ $navOut }}" class="flex items-center">
                                     {{ __('messages.about_us') }}
@@ -361,8 +365,11 @@
                     <a href="{{ route('deals.kanban') }}" class="mobile-menu-link" @click="open = false">
                         <span class="mr-3">📊</span> {{ __('messages.kanban') }}
                     </a>
+                    <a href="{{ route('users.index') }}" class="mobile-menu-link" @click="open = false">
+                        <span class="mr-3">👤</span> {{ __('messages.users') }}
+                    </a>
                     @can('manage company')
-                        <a href="{{ route('super-admin.clients.index') }}" class="mobile-menu-link" @click="open = false">
+                        <a href="{{ route('super-admin.companies.index') }}" class="mobile-menu-link" @click="open = false">
                             <span class="mr-3">⚙️</span> Super Admin
                         </a>
                     @endcan

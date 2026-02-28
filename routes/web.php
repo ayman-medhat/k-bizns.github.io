@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/company-settings', [\App\Http\Controllers\CompanySettingsController::class, 'index'])->name('company-settings.index');
 
     Route::get('/company-info', [CompanyInfoController::class, 'show'])->name('company-info.show');
+    Route::get('/about-us', [CompanyInfoController::class, 'show']);
 
     Route::post('/theme', [ThemeController::class, 'update'])->name('theme.update');
 

@@ -96,19 +96,18 @@
 
         <!-- Desktop Menu -->
         <div class="hidden lg:flex items-center gap-8">
-            <a href="#about" class="hover:text-kashmos-accent transition-colors">About</a>
-            <a href="#services" class="hover:text-kashmos-accent transition-colors">Services</a>
-            <a href="#contact" class="hover:text-kashmos-accent transition-colors">Contact</a>
+            <a href="#about" class="hover:text-kashmos-accent transition-colors">{{ __('messages.about_us') }}</a>
+            <a href="#services" class="hover:text-kashmos-accent transition-colors">{{ __('messages.services') }}</a>
+            <a href="#contact" class="hover:text-kashmos-accent transition-colors">{{ __('messages.contact') }}</a>
 
             @if (Route::has('login'))
                 <div class="flex items-center gap-4 ml-6 pl-6 border-l border-white/10">
                     @auth
                         <a href="{{ url('/dashboard') }}"
-                            class="px-6 py-2 bg-kashmos-accent text-kashmos-prime font-bold rounded-full hover:scale-105 transition-transform">Dashboard</a>
+                            class="px-6 py-2 bg-kashmos-accent text-kashmos-prime font-bold rounded-full hover:scale-105 transition-transform">{{ __('messages.dashboard') }}</a>
                     @else
                         <a href="{{ route('login') }}"
-                            class="px-6 py-2 bg-transparent border border-kashmos-accent text-kashmos-accent font-bold rounded-full hover:bg-kashmos-accent hover:text-kashmos-prime transition-all">Log
-                            In</a>
+                            class="px-6 py-2 bg-transparent border border-kashmos-accent text-kashmos-accent font-bold rounded-full hover:bg-kashmos-accent hover:text-kashmos-prime transition-all">{{ __('messages.login') }}</a>
                     @endauth
                 </div>
             @endif
@@ -164,11 +163,11 @@
                     IT Excellence Since 2015
                 </div>
                 <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6">
-                    Transforming Technology into <span class="gradient-text">Measurable Growth</span>
+                    {{ __('messages.hero_title_1') }} <span
+                        class="gradient-text">{{ __('messages.hero_title_2') }}</span>
                 </h1>
                 <p class="text-xl text-slate-400 mb-10 leading-relaxed max-w-xl">
-                    We design scalable, revenue-driven technology ecosystems that accelerate growth, improve operational
-                    efficiency, and create competitive advantage.
+                    {{ __('messages.hero_description') }}
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="#services"
@@ -222,24 +221,20 @@
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
                     <div>
-                        <h2 class="text-kashmos-accent font-bold tracking-widest uppercase mb-4">About Kashmos</h2>
-                        <h3 class="text-4xl lg:text-5xl font-bold text-white leading-tight">A Decade of Enabling
-                            Organization Growth</h3>
+                        <h2 class="text-kashmos-accent font-bold tracking-widest uppercase mb-4">{{ __('messages.about_kashmos') }}</h2>
+                        <h3 class="text-4xl lg:text-5xl font-bold text-white leading-tight">{{ __('messages.about_title') }}</h3>
                     </div>
                     <p class="text-lg text-slate-400">
-                        Established in 2015, Kashmos has spent nearly a decade enabling organizations to align
-                        technology with business objectives. We operate with a business-first mindset — meaning every
-                        infrastructure decision, every application, and every integration is built around measurable
-                        ROI.
+                        {{ __('messages.about_description') }}
                     </p>
                     <div class="grid grid-cols-2 gap-8">
                         <div class="p-6 glass rounded-3xl border-kashmos-accent/10">
                             <div class="text-3xl font-bold text-kashmos-accent mb-2">9+</div>
-                            <div class="text-slate-400 text-sm">Years of Tech Excellence</div>
+                            <div class="text-slate-400 text-sm">{{ __('messages.years_excellence') }}</div>
                         </div>
                         <div class="p-6 glass rounded-3xl border-kashmos-accent/10">
                             <div class="text-3xl font-bold text-kashmos-accent mb-2">100%</div>
-                            <div class="text-slate-400 text-sm">Client ROI Driven</div>
+                            <div class="text-slate-400 text-sm">{{ __('messages.client_roi') }}</div>
                         </div>
                     </div>
                 </div>
@@ -247,9 +242,9 @@
                 <div class="glass p-8 lg:p-12 rounded-[3rem] border-white/5 relative">
                     <div
                         class="absolute -top-6 -right-6 px-6 py-3 bg-kashmos-accent text-kashmos-prime font-black rounded-2xl shadow-xl">
-                        OUR MISSION</div>
+                        {{ __('messages.our_mission') }}</div>
                     <p class="text-2xl font-medium text-white italic leading-relaxed mb-8">
-                        "To bridge the gap between technology and business growth through strategic IT evolution."
+                        "{{ __('messages.mission_quote') }}"
                     </p>
                     <hr class="border-white/10 mb-8">
                     <div class="space-y-4">
@@ -266,10 +261,9 @@
     <section id="services" class="py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-kashmos-accent font-bold tracking-widest uppercase mb-4">What We Do</h2>
-                <h3 class="text-4xl lg:text-5xl font-bold text-white mb-6">Expert IT services for modern businesses</h3>
-                <p class="text-slate-400 text-lg">We deliver precision-engineered solutions that integrate perfectly
-                    with your operational model.</p>
+                <h2 class="text-kashmos-accent font-bold tracking-widest uppercase mb-4">{{ __('messages.what_we_do') }}</h2>
+                <h3 class="text-4xl lg:text-5xl font-bold text-white mb-6">{{ __('messages.services_title') }}</h3>
+                <p class="text-slate-400 text-lg">{{ __('messages.services_description') }}</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

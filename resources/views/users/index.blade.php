@@ -1,17 +1,17 @@
 <x-app-layout>
-    <x-slot name="header">{{ __('Users') }}</x-slot>
+    <x-slot name="header">{{ __('messages.users') }}</x-slot>
 
     <div>
         <div class="flex justify-between items-center mb-6">
             <h3
                 style="font-size: 1.5rem; font-weight: 350; color: var(--title-color); border-bottom: 2px dotted var(--nav-border); padding-bottom: 0.4rem;">
-                {{ __('All Users') }}
+                {{ __('messages.all_users') }}
             </h3>
             <a href="{{ route('users.create') }}"
                 style="background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--btn-border); padding: 0.5rem 1.25rem; border-radius: 2rem; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.2s; white-space: nowrap;"
                 onmouseover="this.style.background='var(--btn-hover-bg)';"
                 onmouseout="this.style.background='var(--btn-bg)';">
-                ➕ {{ __('Create User') }}
+                ➕ {{ __('messages.create_user') }}
             </a>
         </div>
 
@@ -66,16 +66,19 @@
                         <tr style="background: var(--table-header-bg); color: var(--table-header-color);">
                             <th class="py-3 px-4 text-left"
                                 style="font-weight: 550; border-bottom: 2px solid var(--table-border); border-radius: 1.5rem 0 0 1.5rem;">
-                                {{ __('Name') }}</th>
+                                {{ __('Name') }}
+                            </th>
                             <th class="py-3 px-4 text-left"
                                 style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
-                                {{ __('Email') }}</th>
+                                {{ __('Email') }}
+                            </th>
                             <th class="py-3 px-4 text-left"
                                 style="font-weight: 550; border-bottom: 2px solid var(--table-border);">{{ __('Role') }}
                             </th>
                             <th class="py-3 px-4 text-right"
                                 style="font-weight: 550; border-bottom: 2px solid var(--table-border); border-radius: 0 1.5rem 1.5rem 0;">
-                                {{ __('Actions') }}</th>
+                                {{ __('Actions') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,10 +88,12 @@
                                 onmouseout="this.style.background='transparent';">
                                 <td class="p-4"
                                     style="border-bottom: 1px solid var(--row-border); font-weight: 600; color: var(--text-color);">
-                                    {{ $user->name }}</td>
+                                    {{ $user->name }}
+                                </td>
                                 <td class="p-4"
                                     style="border-bottom: 1px solid var(--row-border); opacity: 0.85; color: var(--text-color);">
-                                    {{ $user->email }}</td>
+                                    {{ $user->email }}
+                                </td>
                                 <td class="p-4" style="border-bottom: 1px solid var(--row-border);">
                                     <span
                                         style="background: var(--badge-bg); padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid var(--badge-border); font-size: 0.8rem; font-weight: 600;">

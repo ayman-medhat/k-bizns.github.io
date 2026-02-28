@@ -30,7 +30,7 @@ class CompanyController extends Controller
 
         Company::create($request->only('name'));
 
-        return redirect()->route('super-admin.companies.index')->with('success', 'Company created successfully.');
+        return redirect()->route('super-admin.companies.index')->with('success', __('messages.company_created_successfully'));
     }
 
     public function show(Company $company)
@@ -59,6 +59,6 @@ class CompanyController extends Controller
             'status' => 'active',
         ]);
 
-        return redirect()->route('super-admin.companies.show', $company)->with('success', 'Subscription updated.');
+        return redirect()->route('super-admin.companies.show', $company)->with('success', __('messages.subscription_updated_successfully'));
     }
 }

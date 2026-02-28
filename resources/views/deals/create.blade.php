@@ -61,6 +61,27 @@
                 </select>
             </div>
 
+            <!-- Company selection for Super Admin -->
+            @if(auth()->user()->hasRole('Super Admin'))
+                <h3
+                    style="font-size: 1.5rem; color: var(--title-color); border-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 6px solid var(--accent-border); padding-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 1rem; margin-bottom: 2rem; font-weight: 350;">
+                    {{ __('messages.company_assignment') ?? __('Company Assignment') }}
+                </h3>
+                <div class="mb-8">
+                    <x-input-label for="company_id" :value="__('messages.company') ?? __('Company')" />
+                    <select name="company_id" id="company_id" required
+                        style="background: var(--nav-bg); border-color: var(--nav-border); border-radius: 0.75rem; color: var(--text-color);"
+                        class="block mt-1 w-full focus:border-[var(--accent-border)] focus:ring-[var(--accent-border)]">
+                        <option value="">{{ __('messages.select_company') ?? __('Select Company') }}</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                {{ $company->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
+
             <div class="flex flex-col sm:flex-row items-center justify-end gap-3 mt-10">
                 <button type="submit"
                     style="color: var(--btn-text); background: var(--btn-bg); padding: 0.8rem 2.5rem; border-radius: 40px; font-weight: 600; border: 1px solid var(--btn-border); cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); width: 100%;"

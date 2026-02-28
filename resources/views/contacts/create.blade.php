@@ -129,6 +129,29 @@
                 </div>
             </div>
 
+            <!-- Company selection for Super Admin -->
+            @if(auth()->user()->hasRole('Super Admin'))
+                <h3
+                    style="font-size: 1.5rem; color: var(--title-color); border-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 6px solid var(--accent-border); padding-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 1rem; margin-bottom: 1.5rem; font-weight: 350;">
+                    {{ __('messages.company_assignment') ?? __('Company Assignment') }}
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <x-input-label for="company_id" :value="__('messages.company') ?? __('Company')" />
+                        <select name="company_id" id="company_id" required
+                            style="background: var(--nav-bg); border-color: var(--nav-border); border-radius: 0.75rem; color: var(--text-color);"
+                            class="block mt-1 w-full focus:border-[var(--accent-border)] focus:ring-[var(--accent-border)]">
+                            <option value="">{{ __('messages.select_company') ?? __('Select Company') }}</option>
+                            @foreach($companies as $company)
+                                <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                    {{ $company->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            @endif
+
             <!-- Files & Media -->
             <h3
                 style="font-size: 1.5rem; color: var(--title-color); border-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 6px solid var(--accent-border); padding-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 1rem; margin-bottom: 1.5rem; font-weight: 350;">

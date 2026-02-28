@@ -1,20 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create User') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('messages.create_user') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <form method="POST" action="{{ route('users.store') }}">
+    <div>
+        <div class="mb-6">
+            <h3
+                style="font-size: 1.5rem; font-weight: 350; color: var(--title-color); border-bottom: 2px dotted var(--nav-border); padding-bottom: 0.4rem;">
+                {{ __('messages.team_management') }}
+            </h3>
+        </div>
+
+        <div style="background: var(--content-bg); border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--row-border); box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+            <form method="POST" action="{{ route('users.store') }}">
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Name -->
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
+                            <x-input-label for="name" :value="__('messages.name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                 :value="old('name')" required autofocus />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -22,7 +28,7 @@
 
                         <!-- Email -->
                         <div>
-                            <x-input-label for="email" :value="__('Email')" />
+                            <x-input-label for="email" :value="__('messages.email')" />
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
                                 :value="old('email')" required />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -30,7 +36,7 @@
 
                         <!-- Password -->
                         <div>
-                            <x-input-label for="password" :value="__('Password')" />
+                            <x-input-label for="password" :value="__('messages.password') ?? __('Password')" />
                             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
                                 required />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -38,16 +44,17 @@
 
                         <!-- Confirm Password -->
                         <div>
-                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            <x-input-label for="password_confirmation" :value="__('messages.confirm_password') ?? __('Confirm Password')" />
                             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                                 name="password_confirmation" required />
                         </div>
 
                         <!-- Role -->
                         <div>
-                            <x-input-label for="role" :value="__('Role')" />
+                            <x-input-label for="role" :value="__('messages.role')" />
                             <select id="role" name="role"
-                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
                                 @foreach($roles as $role)
                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                 @endforeach
@@ -57,22 +64,44 @@
 
                         <!-- Manager -->
                         <div>
-                            <x-input-label for="manager_id" :value="__('Manager')" />
+                            <x-input-label for="manager_id" :value="__('messages.manager') ?? __('Manager')" />
                             <select id="manager_id" name="manager_id"
-                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                                <option value="">{{ __('No Manager') }}</option>
+                                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                                <option value="">{{ __('messages.no_manager') }}</option>
                                 @foreach($managers as $manager)
                                     <option value="{{ $manager->id }}">{{ $manager->name }}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('manager_id')" class="mt-2" />
                         </div>
+
+                        <!-- Company (Super Admin only) -->
+                        @if(auth()->user()->hasRole('Super Admin'))
+                        <div>
+                            <x-input-label for="company_id" :value="__('messages.company') ?? __('Company')" />
+                            <select id="company_id" name="company_id"
+                                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);" required>
+                                <option value="">{{ __('messages.select_company') ?? __('Select Company') }}</option>
+                                @foreach($companies as $company)
+                                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
+                        </div>
+                        @endif
                     </div>
 
-                    <div class="flex items-center justify-end mt-6">
-                        <x-primary-button>
-                            {{ __('Create User') }}
-                        </x-primary-button>
+                    <div class="flex items-center justify-end mt-8">
+                        <button type="submit" 
+                            style="background: var(--btn-bg); color: var(--btn-text); padding: 0.8rem 2rem; border-radius: 40px; font-weight: 700; border: 1px solid var(--btn-border); transition: all 0.2s;"
+                            class="w-full sm:w-auto"
+                            onmouseover="this.style.background='var(--btn-hover-bg)'; this.style.transform='translateY(-2px)';"
+                            onmouseout="this.style.background='var(--btn-bg)'; this.style.transform='translateY(0)';"
+                        >
+                            {{ __('messages.create_user') }}
+                        </button>
                     </div>
                 </form>
             </div>
