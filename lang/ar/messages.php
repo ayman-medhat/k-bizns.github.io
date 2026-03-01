@@ -158,6 +158,8 @@ return [
     'create_user' => 'إنشاء مستخدم',
     'all_users' => 'جميع المستخدمين',
     'role' => 'الدور',
+    'select_role' => 'اختر الدور',
+    'manager' => 'المدير',
     'team_management' => 'إدارة الفريق',
     'no_manager' => 'بدون مدير',
     'user_created_successfully' => 'تم إنشاء المستخدم بنجاح.',

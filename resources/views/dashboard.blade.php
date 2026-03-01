@@ -4,6 +4,17 @@
     </x-slot>
 
     <div>
+        @can('manage company')
+            <div class="mb-6 flex justify-end">
+                <a href="{{ route('super-admin.companies.index') }}"
+                    style="color: var(--btn-text); background: var(--btn-bg); padding: 0.7rem 1.2rem; border-radius: 999px; border: 1px solid var(--btn-border); font-weight: 600; text-decoration: none; transition: all 0.2s;"
+                    onmouseover="this.style.background='var(--btn-hover-bg)'; this.style.transform='translateY(-1px)';"
+                    onmouseout="this.style.background='var(--btn-bg)'; this.style.transform='translateY(0)';">
+                    {{ __('messages.manage_companies') }}
+                </a>
+            </div>
+        @endcan
+
         <h3 class="text-2xl font-light mb-6 flex items-center gap-3"
             style="color: var(--title-color); letter-spacing: -0.01em;">
             {{ __('messages.welcome') }} <span style="font-weight: 600; color: var(--accent-text);">K-bizns</span>

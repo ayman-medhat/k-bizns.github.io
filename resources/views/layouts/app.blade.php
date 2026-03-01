@@ -223,7 +223,7 @@
                             @can('manage company')
                                 <a href="{{ route('super-admin.companies.index') }}" style="{{ $navStyle }}"
                                     onmouseover="{{ $navHover }}" onmouseout="{{ $navOut }}" class="flex items-center">
-                                    Super Admin
+                                    {{ __('messages.manage_companies') }}
                                 </a>
                             @endcan
                         </div>
@@ -370,7 +370,7 @@
                     </a>
                     @can('manage company')
                         <a href="{{ route('super-admin.companies.index') }}" class="mobile-menu-link" @click="open = false">
-                            <span class="mr-3">⚙️</span> Super Admin
+                            <span class="mr-3">⚙️</span> {{ __('messages.manage_companies') }}
                         </a>
                     @endcan
                     <a href="{{ route('company-settings.index') }}" class="mobile-menu-link" @click="open = false">

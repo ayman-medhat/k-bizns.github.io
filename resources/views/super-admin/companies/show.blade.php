@@ -4,6 +4,22 @@
     </x-slot>
 
     <div>
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="mb-6">
             <a href="{{ route('super-admin.companies.index') }}"
                 style="color: var(--accent-text); padding: 0.4rem 1.2rem; border-radius: 30px; background: var(--accent-bg); border: 1px solid var(--accent-border); font-size: 0.875rem; transition: all 0.2s; display: inline-flex; items-center gap-1;"
@@ -86,7 +102,7 @@
             </div>
 
             <!-- Company Stats / Users -->
-            <div class="glass-card p-8"
+            <div class="glass-card p-8 space-y-6"
                 style="background: var(--content-bg); border: 1px solid var(--row-border); border-radius: 1.5rem; box-shadow: var(--card-shadow);">
                 <h3 class="text-xl font-semibold mb-6" style="color: var(--title-color);">
                     {{ __('messages.users') }} ({{ $company->users->count() }})
@@ -105,6 +121,88 @@
                         </li>
                     @endforeach
                 </ul>
+
+                <div class="pt-4 border-t" style="border-color: var(--row-border);">
+                    <h4 class="text-lg font-semibold mb-4" style="color: var(--title-color);">
+                        {{ __('messages.create_user') }}
+                    </h4>
+
+                    <form action="{{ route('super-admin.companies.users.store', $company) }}" method="POST" class="space-y-4">
+                        @csrf
+
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-1.5" style="color: var(--text-color);">
+                                {{ __('messages.name') }}
+                            </label>
+                            <input id="name" type="text" name="name" value="{{ old('name') }}" required
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-1.5" style="color: var(--text-color);">
+                                {{ __('messages.email') }}
+                            </label>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                        </div>
+
+                        <div>
+                            <label for="role" class="block text-sm font-medium mb-1.5" style="color: var(--text-color);">
+                                {{ __('messages.role') }}
+                            </label>
+                            <select id="role" name="role" required
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                                <option value="">{{ __('messages.select_role') ?? 'Select Role' }}</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}" {{ old('role') === $role->name ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="manager_id" class="block text-sm font-medium mb-1.5"
+                                style="color: var(--text-color);">{{ __('messages.manager') ?? 'Manager' }}</label>
+                            <select id="manager_id" name="manager_id"
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                                <option value="">{{ __('messages.no_manager') }}</option>
+                                @foreach($managers as $manager)
+                                    <option value="{{ $manager->id }}" {{ (string) old('manager_id') === (string) $manager->id ? 'selected' : '' }}>
+                                        {{ $manager->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-sm font-medium mb-1.5"
+                                style="color: var(--text-color);">{{ __('messages.password') }}</label>
+                            <input id="password" type="password" name="password" required
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                        </div>
+
+                        <div>
+                            <label for="password_confirmation" class="block text-sm font-medium mb-1.5"
+                                style="color: var(--text-color);">{{ __('messages.confirm_password') }}</label>
+                            <input id="password_confirmation" type="password" name="password_confirmation" required
+                                class="block w-full rounded-md shadow-sm"
+                                style="background-color: var(--content-bg); color: var(--text-color); border-color: var(--row-border);">
+                        </div>
+
+                        <button type="submit"
+                            style="background: var(--btn-bg); color: var(--btn-text); width: 100%; padding: 0.8rem; border-radius: 1rem; font-weight: 500; transition: all 0.2s;"
+                            onmouseover="this.style.transform='translateY(-2px)';"
+                            onmouseout="this.style.transform='translateY(0)';" class="hover:shadow-lg">
+                            {{ __('messages.create_user') }}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

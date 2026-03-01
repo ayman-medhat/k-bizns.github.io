@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:manage company'])->prefix('super-admin')->name('super-admin.')->group(function () {
         Route::resource('companies', \App\Http\Controllers\SuperAdmin\CompanyController::class);
         Route::post('companies/{company}/subscription', [\App\Http\Controllers\SuperAdmin\CompanyController::class, 'updateSubscription'])->name('companies.update-subscription');
+        Route::post('companies/{company}/users', [\App\Http\Controllers\SuperAdmin\CompanyController::class, 'storeUser'])
+            ->middleware('limit:max_users')
+            ->name('companies.users.store');
         Route::resource('plans', \App\Http\Controllers\SuperAdmin\SubscriptionPlanController::class);
     });
 });

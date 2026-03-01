@@ -30,8 +30,15 @@ class FeatureGate
             return false;
         }
 
+        if (auth()->check() && auth()->user()->isRoot()) {
+            return true;
+        }
+
         $subscription = $this->company->activeSubscription;
         if (! $subscription) {
+            if (! $this->company->trial_ends_at || $this->company->trial_ends_at->isFuture()) {
+                return true;
+            }
             return false;
         }
 
@@ -46,8 +53,15 @@ class FeatureGate
             return false;
         }
 
+        if (auth()->check() && auth()->user()->isRoot()) {
+            return true;
+        }
+
         $subscription = $this->company->activeSubscription;
         if (! $subscription) {
+            if (! $this->company->trial_ends_at || $this->company->trial_ends_at->isFuture()) {
+                return true;
+            }
             return false;
         }
 

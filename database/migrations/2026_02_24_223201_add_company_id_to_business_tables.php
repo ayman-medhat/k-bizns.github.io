@@ -46,7 +46,6 @@ return new class extends Migration
                     // Ignore when constraint already exists.
                 }
             });
-
             // 2. Assign existing records to the default company
             \Illuminate\Support\Facades\DB::table($tableName)->whereNull('company_id')->update(['company_id' => $defaultCompanyId]);
 

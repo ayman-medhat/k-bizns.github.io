@@ -44,13 +44,13 @@ class GrantAdminPermissionsSeeder extends Seeder
             }
         }
 
-        // 3. Find User 1 and assign the Super Admin role
-        $user = User::find(1);
+        // 3. Ensure the root account has Super Admin role
+        $user = User::where('email', 'root@kashmos.com')->first() ?? User::find(1);
         if ($user) {
             $user->assignRole($superAdminRole);
-            echo "Assigned 'Super Admin' role to user 1.\n";
+            echo "Assigned 'Super Admin' role to {$user->email}.\n";
         } else {
-            echo "User 1 not found.\n";
+            echo "Root user not found.\n";
         }
 
         // 4. Also ensure 'Company Admin' exists and has 'manage users'

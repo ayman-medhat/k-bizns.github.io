@@ -72,11 +72,13 @@
                                     {{ $company->created_at->format('Y-m-d') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('super-admin.companies.show', $company) }}"
-                                        style="color: var(--accent-text); background: var(--accent-bg); padding: 0.4rem 1rem; border-radius: 30px; border: 1px solid var(--accent-border);"
-                                        class="hover:opacity-80 transition-opacity">
-                                        {{ __('messages.manage') }}
-                                    </a>
+                                    <div class="flex items-center gap-2">
+                                        <a href="{{ route('super-admin.companies.show', $company) }}"
+                                            style="color: var(--accent-text); background: var(--accent-bg); padding: 0.4rem 1rem; border-radius: 30px; border: 1px solid var(--accent-border);"
+                                            class="hover:opacity-80 transition-opacity">
+                                            {{ __('messages.view') }}
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -116,7 +118,7 @@
                             <a href="{{ route('super-admin.companies.show', $company) }}"
                                 style="color: var(--accent-text); background: var(--accent-bg); display: block; text-align: center; padding: 0.75rem; border-radius: 1rem; font-weight: 500; border: 1px solid var(--accent-border);"
                                 class="hover:opacity-80 transition-opacity">
-                                {{ __('messages.manage') }}
+                                {{ __('messages.view') }}
                             </a>
                         </div>
                     </div>

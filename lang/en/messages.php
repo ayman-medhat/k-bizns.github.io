@@ -158,6 +158,8 @@ return [
     'create_user' => 'Create User',
     'all_users' => 'All Users',
     'role' => 'Role',
+    'select_role' => 'Select Role',
+    'manager' => 'Manager',
     'team_management' => 'Team Management',
     'no_manager' => 'No Manager',
     'user_created_successfully' => 'User created successfully.',
