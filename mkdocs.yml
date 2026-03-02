@@ -1,0 +1,11 @@
+site_name: k-bizns Docs
+site_description: Documentation for the k-bizns Laravel CRM application
+site_url: https://ayman-medhat.github.io/k-bizns.github.io/
+repo_url: https://github.com/ayman-medhat/k-bizns.github.io
+repo_name: ayman-medhat/k-bizns.github.io
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Deployment Notes: deployment.md

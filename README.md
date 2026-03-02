@@ -17,6 +17,33 @@ A business CRM application built with Laravel.
 ./vendor/bin/sail artisan test
 ```
 
+## Documentation (MkDocs)
+
+```bash
+python3 -m pip install -r requirements-docs.txt
+python3 -m mkdocs serve
+```
+
+Build static docs:
+
+```bash
+python3 -m mkdocs build
+```
+
+## Publish Website On GitHub (Pages)
+
+This repo now includes a GitHub Actions workflow at
+`.github/workflows/deploy-pages.yml` that publishes the MkDocs site on every
+push to `main`.
+
+1. Open repository settings on GitHub.
+2. Go to `Pages`.
+3. Set source to `GitHub Actions`.
+4. Push to `main` and wait for the `Deploy Docs To GitHub Pages` workflow.
+
+Note: GitHub Pages serves static files only. Laravel (PHP + MySQL) must be
+deployed on a PHP host. Pages in this setup publishes your project website/docs.
+
 ## Notes
 
 - Multi-tenant company structure
