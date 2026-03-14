@@ -22,6 +22,17 @@ class TenantScope implements Scope
         static::$resolving = true;
 
         try {
+            // Super Admin / root users must be able to view across companies (e.g. super-admin pages).
+            if (auth()->hasUser()) {
+                $user = auth()->user();
+                $isSuperAdmin = method_exists($user, 'hasRole') && $user->hasRole('Super Admin');
+                $isRoot = method_exists($user, 'isRoot') ? $user->isRoot() : (bool) ($user->is_root ?? false);
+
+                if ($isSuperAdmin || $isRoot) {
+                    return;
+                }
+            }
+
             if (session()->has('company_id')) {
                 $builder->where($model->getTable().'.company_id', session('company_id'));
             } elseif (auth()->hasUser()) {
