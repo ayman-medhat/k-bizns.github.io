@@ -5,7 +5,18 @@ repo_url: https://github.com/ayman-medhat/k-bizns.github.io
 repo_name: ayman-medhat/k-bizns.github.io
 theme:
   name: material
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+  - javascripts/mermaid-init.js
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Deployment Notes: deployment.md
+  - Data Flow: data-flow.md
+  - Flowcharts: flowcharts.md
