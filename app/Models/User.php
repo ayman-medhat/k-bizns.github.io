@@ -81,7 +81,7 @@ class User extends Authenticatable
 
                 $authUser = auth()->user();
 
-                if (! $authUser || $authUser->id !== $user->id) {
+                if (!$authUser || $authUser->id !== $user->id) {
                     // Block unauthorized updates (e.g. by other admins)
                     return false;
                 }
@@ -92,7 +92,7 @@ class User extends Authenticatable
                 unset($dirty['password']);
                 unset($dirty['updated_at']);
 
-                if (! empty($dirty)) {
+                if (!empty($dirty)) {
                     // Revert all other changes
                     foreach ($dirty as $key => $value) {
                         $user->$key = $user->getOriginal($key);
@@ -106,6 +106,11 @@ class User extends Authenticatable
                 return false;
             }
         });
+    }
+
+    public function preference()
+    {
+        return $this->hasOne(UserPreference::class);
     }
 
     public function activities()

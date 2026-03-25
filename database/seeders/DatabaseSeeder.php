@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionPlanSeeder::class,
             CompanyInfoSeeder::class,
             RootUserSeeder::class,
+            ErpModuleSeeder::class,
         ]);
     }
 }

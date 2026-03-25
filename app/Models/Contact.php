@@ -42,23 +42,33 @@ class Contact extends Model
         parent::boot();
 
         static::saving(function ($contact) {
-            // Auto-calculate birthdate from Egyptian National ID if birthdate is empty
-            // Nationality ID 1 is Egypt (from seeder)
-            if ($contact->nationality_id == 1 && $contact->national_id && ! $contact->birthdate) {
-                $id = $contact->national_id;
+            // Auto-calculate birthdate from Egyptian National ID
+            if ($contact->national_id) {
+                // Check if nationality is Egyptian
+                $isEgyptian = false;
+                if ($contact->nationality_id) {
+                    $country = \App\Models\Country::find($contact->nationality_id);
+                    if ($country && (stripos($country->name_en, 'egypt') !== false || stripos($country->nationality_en, 'egypt') !== false)) {
+                        $isEgyptian = true;
+                    }
+                }
 
-                if (strlen($id) === 14) {
-                    $century = substr($id, 0, 1);
-                    $year = substr($id, 1, 2);
-                    $month = substr($id, 3, 2);
-                    $day = substr($id, 5, 2);
+                if ($isEgyptian) {
+                    $id = $contact->national_id;
 
-                    $fullYear = ($century == 2 ? '19' : '20').$year;
+                    if (strlen($id) === 14) {
+                        $century = substr($id, 0, 1);
+                        $year = substr($id, 1, 2);
+                        $month = substr($id, 3, 2);
+                        $day = substr($id, 5, 2);
 
-                    try {
-                        $contact->birthdate = \Carbon\Carbon::createFromDate($fullYear, $month, $day);
-                    } catch (\Exception $e) {
-                        // Invalid date, ignore
+                        $fullYear = ($century == 2 ? '19' : '20') . $year;
+
+                        try {
+                            $contact->birthdate = \Carbon\Carbon::createFromDate($fullYear, $month, $day);
+                        } catch (\Exception $e) {
+                            // Invalid date, ignore
+                        }
                     }
                 }
             }
@@ -68,7 +78,7 @@ class Contact extends Model
     // Accessors
     public function getAgeAttribute()
     {
-        if (! $this->birthdate) {
+        if (!$this->birthdate) {
             return null;
         }
 
@@ -77,13 +87,13 @@ class Contact extends Model
 
         $parts = [];
         if ($diff->y > 0) {
-            $parts[] = $diff->y.' years';
+            $parts[] = $diff->y . ' years';
         }
         if ($diff->m > 0) {
-            $parts[] = $diff->m.' months';
+            $parts[] = $diff->m . ' months';
         }
         if ($diff->d > 0) {
-            $parts[] = $diff->d.' days';
+            $parts[] = $diff->d . ' days';
         }
 
         return implode(', ', $parts) ?: '0 days';
@@ -106,12 +116,12 @@ class Contact extends Model
 
     public function getFullPhoneAttribute()
     {
-        if (! $this->phone) {
+        if (!$this->phone) {
             return '-';
         }
         $code = $this->phoneCountry ? "+{$this->phoneCountry->phone_code} " : '';
 
-        return $code.$this->phone;
+        return $code . $this->phone;
     }
 
     // Relationships

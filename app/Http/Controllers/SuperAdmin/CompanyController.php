@@ -16,7 +16,14 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::with('activeSubscription.plan')->get();
+        $query = Company::with('activeSubscription.plan');
+
+        // Hide Kashmos from non-root users
+        if (!auth()->user()->is_root) {
+            $query->where('name', 'not like', '%Kashmos%');
+        }
+
+        $companies = $query->get();
 
         return view('super-admin.companies.index', compact('companies'));
     }
@@ -37,8 +44,32 @@ class CompanyController extends Controller
         return redirect()->route('super-admin.companies.index')->with('success', __('messages.company_created_successfully'));
     }
 
+    public function edit(Company $company)
+    {
+        if (stripos($company->name, 'Kashmos') !== false && !auth()->user()->is_root) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('super-admin.companies.edit', compact('company'));
+    }
+
+    public function update(Request $request, Company $company)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $company->update($request->only('name'));
+
+        return redirect()->route('super-admin.companies.index')->with('success', __('messages.company_updated_successfully'));
+    }
+
     public function show(Company $company)
     {
+        if (stripos($company->name, 'Kashmos') !== false && !auth()->user()->is_root) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $company->load('subscriptions.plan', 'users');
         $plans = SubscriptionPlan::all();
         $roles = Role::whereNotIn('name', ['Super Admin'])->get();
@@ -94,5 +125,15 @@ class CompanyController extends Controller
         return redirect()
             ->route('super-admin.companies.show', $company)
             ->with('success', __('messages.user_created_successfully'));
+    }
+    public function destroy(Company $company)
+    {
+        if (stripos($company->name, 'Kashmos') !== false) {
+            return redirect()->route('super-admin.companies.index')->with('error', __('The Kashmos system company cannot be deleted.'));
+        }
+
+        $company->delete();
+
+        return redirect()->route('super-admin.companies.index')->with('success', __('messages.company_deleted_successfully'));
     }
 }

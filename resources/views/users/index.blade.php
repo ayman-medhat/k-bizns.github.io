@@ -42,13 +42,21 @@
                             </span>
                         </div>
                         <div class="flex flex-col gap-2 flex-shrink-0">
-                            <a href="{{ route('users.edit', $user) }}" style="font-size: 1.1rem;">✏️</a>
-                            <form action="{{ route('users.destroy', $user) }}" method="POST"
-                                onsubmit="return confirm('Delete this user?')">
-                                @csrf @method('DELETE')
-                                <button type="submit"
-                                    style="font-size: 1.1rem; background: none; border: none; cursor: pointer;">🗑️</button>
+                            <a href="{{ route('users.edit', $user) }}" style="font-size: 1.1rem;" title="Edit">✏️</a>
+                            <form action="{{ route('users.reset-password', $user) }}" method="POST"
+                                onsubmit="return confirm('Reset this user\\'s password? A new password will be generated and emailed to the root admin.')">
+                                @csrf
+                                <button type="submit" title="Reset Password"
+                                    style="font-size: 1.1rem; background: none; border: none; cursor: pointer;">🔑</button>
                             </form>
+                            @if(!$user->is_root)
+                                <form action="{{ route('users.destroy', $user) }}" method="POST"
+                                    onsubmit="return confirm('Delete this user?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" title="Delete User"
+                                        style="font-size: 1.1rem; background: none; border: none; cursor: pointer;">🗑️</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -102,18 +110,32 @@
                                 </td>
                                 <td class="p-4 text-right" style="border-bottom: 1px solid var(--row-border);">
                                     <div class="flex justify-end gap-3 items-center">
-                                        <a href="{{ route('users.edit', $user) }}"
+                                        <a href="{{ route('users.edit', $user) }}" title="Edit User"
                                             style="color: var(--btn-text); font-size: 1.1rem; transition: transform 0.2s;"
                                             onmouseover="this.style.transform='scale(1.2)';"
                                             onmouseout="this.style.transform='scale(1)';">✏️</a>
-                                        <form action="{{ route('users.destroy', $user) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure?')" class="inline">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                style="background: none; border: none; cursor: pointer; font-size: 1.1rem; transition: transform 0.2s;"
+                                        <form action="{{ route('users.reset-password', $user) }}" method="POST"
+                                            onsubmit="return confirm('Reset this user\\'s password? A new password will be generated and emailed to the root admin.')"
+                                            class="inline m-0 p-0 flex items-center">
+                                            @csrf
+                                            <button type="submit" title="Reset Password"
+                                                style="color: var(--btn-text); font-size: 1.1rem; border: none; cursor: pointer; transition: transform 0.2s; background: none; padding: 0;"
                                                 onmouseover="this.style.transform='scale(1.2)';"
-                                                onmouseout="this.style.transform='scale(1)';">🗑️</button>
+                                                onmouseout="this.style.transform='scale(1)';">
+                                                🔑
+                                            </button>
                                         </form>
+                                        @if(!$user->is_root)
+                                            <form action="{{ route('users.destroy', $user) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure?')"
+                                                class="inline m-0 p-0 flex items-center">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" title="Delete User"
+                                                    style="color: var(--btn-text); font-size: 1.1rem; border: none; cursor: pointer; transition: transform 0.2s; background: none; padding: 0;"
+                                                    onmouseover="this.style.transform='scale(1.2)';"
+                                                    onmouseout="this.style.transform='scale(1)';">🗑️</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

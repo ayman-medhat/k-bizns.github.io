@@ -14,5 +14,5 @@
 input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button']):not([type='file']),
 textarea,
 select {
-    padding: 3pt !important;
+    padding: 2px !important;
 }

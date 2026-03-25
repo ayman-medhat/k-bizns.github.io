@@ -52,9 +52,14 @@
                                 {{ $client->industry ? (app()->getLocale() == 'ar' ? $client->industry->name_ar : $client->industry->name_en) : __('messages.general') }}
                             </span>
                         </div>
-                        <div class="flex gap-3 flex-shrink-0">
+                        <div class="flex gap-3 flex-shrink-0 items-center">
                             <a href="{{ route('clients.show', $client) }}" style="font-size: 1.2rem;">👁️</a>
                             <a href="{{ route('clients.edit', $client) }}" style="font-size: 1.2rem;">✏️</a>
+                            <form action="{{ route('clients.destroy', $client) }}" method="POST" onsubmit="return confirm('{{ __('messages.are_you_sure') }}');" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="font-size: 1.2rem; border: none; background: none; cursor: pointer;" title="{{ __('messages.delete') }}">🗑️</button>
+                            </form>
                         </div>
                     </div>
                     @if($client->email || $client->phone)
@@ -137,7 +142,7 @@
                                 <td class="py-4 px-4 text-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}"
                                     style="border-bottom: 1px solid var(--row-border);">
                                     <div
-                                        class="flex {{ app()->getLocale() == 'ar' ? 'justify-start' : 'justify-end' }} gap-4">
+                                        class="flex {{ app()->getLocale() == 'ar' ? 'justify-start' : 'justify-end' }} gap-4 items-center">
                                         <a href="{{ route('clients.show', $client) }}" title="{{ __('messages.view') }}"
                                             style="color: var(--btn-text); font-size: 1.2rem; transition: transform 0.2s;"
                                             onmouseover="this.style.transform='scale(1.2)';"
@@ -146,6 +151,17 @@
                                             style="color: var(--btn-text); font-size: 1.2rem; transition: transform 0.2s;"
                                             onmouseover="this.style.transform='scale(1.2)';"
                                             onmouseout="this.style.transform='scale(1)';" class="flex items-center">✏️</a>
+                                        <form action="{{ route('clients.destroy', $client) }}" method="POST"
+                                            onsubmit="return confirm('{{ __('messages.are_you_sure') }}');" class="inline m-0 p-0 flex items-center">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" title="{{ __('messages.delete') }}"
+                                                style="color: var(--btn-text); font-size: 1.2rem; border: none; cursor: pointer; transition: transform 0.2s; background: none; padding: 0;"
+                                                onmouseover="this.style.transform='scale(1.2)';"
+                                                onmouseout="this.style.transform='scale(1)';" class="flex items-center">
+                                                🗑️
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

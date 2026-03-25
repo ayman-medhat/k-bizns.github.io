@@ -17,6 +17,9 @@ class DashboardController extends Controller
             'deals' => Deal::count(),
         ];
 
-        return view('dashboard', compact('counts'));
+        $recentContacts = Contact::latest()->take(3)->get();
+        $recentDeals = Deal::latest()->take(3)->get();
+
+        return view('dashboard', compact('counts', 'recentContacts', 'recentDeals'));
     }
 }

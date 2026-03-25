@@ -1,0 +1,515 @@
+/* =============================================================
+   Kashmos ERP — Royal Brown Theme (overrides Filament defaults)
+   Screenshot-accurate dark theme: bg #140C0C, gold #D2B48C
+   ============================================================= */
+
+/* Import Inter font from Google */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* ───── CSS Variables (Theme Tokens) ───── */
+:root {
+    --kashmos-bg-base: #140c0c;
+    --kashmos-bg-surface: #1a0f0f;
+    --kashmos-bg-card: #231414;
+    --kashmos-bg-elevated: #2a1a1a;
+    --kashmos-border: rgba(210, 180, 140, 0.15);
+    --kashmos-border-accent: rgba(210, 180, 140, 0.4);
+    --kashmos-gold: #d2b48c;
+    --kashmos-gold-muted: #b89a72;
+    --kashmos-text: #ede0d4;
+    --kashmos-text-muted: rgba(237, 224, 212, 0.55);
+    --kashmos-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    --kashmos-shadow-gold: 0 0 20px rgba(210, 180, 140, 0.15);
+    --kashmos-radius: 1rem;
+    --kashmos-radius-sm: 0.75rem;
+
+    /* Filament v3 CSS variable overrides */
+    --fi-color-primary-50: #fdf8f3;
+    --fi-color-primary-100: #f5e6cc;
+    --fi-color-primary-200: #e8c99a;
+    --fi-color-primary-300: #d9aa6f;
+    --fi-color-primary-400: #ce9660;
+    --fi-color-primary-500: #d2b48c;
+    --fi-color-primary-600: #b89868;
+    --fi-color-primary-700: #9a7b4c;
+    --fi-color-primary-800: #7a5e35;
+    --fi-color-primary-900: #5c4033;
+    --fi-color-primary-950: #3d2920;
+}
+
+/* Emerald Green theme */
+[data-theme="emerald"] {
+    --kashmos-gold: #10b981;
+    --kashmos-gold-muted: #059669;
+    --kashmos-border-accent: rgba(16, 185, 129, 0.4);
+    --fi-color-primary-500: #10b981;
+    --fi-color-primary-600: #059669;
+    --fi-color-primary-700: #047857;
+    --fi-color-primary-900: #064e3b;
+}
+
+/* Sapphire Blue theme */
+[data-theme="sapphire"] {
+    --kashmos-gold: #3b82f6;
+    --kashmos-gold-muted: #2563eb;
+    --kashmos-border-accent: rgba(59, 130, 246, 0.4);
+    --fi-color-primary-500: #3b82f6;
+    --fi-color-primary-600: #2563eb;
+    --fi-color-primary-700: #1d4ed8;
+    --fi-color-primary-900: #1e3a8a;
+}
+
+/* ───── Global Base ───── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+.fi-body {
+    background-color: var(--kashmos-bg-base) !important;
+    color: var(--kashmos-text) !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ───── Sidebar ───── */
+.fi-sidebar {
+    background: var(--kashmos-bg-surface) !important;
+    border-right: 1px solid var(--kashmos-border) !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.fi-sidebar-nav-groups {
+    padding: 0.5rem 0.75rem;
+}
+
+/* Nav items */
+.fi-sidebar-item-button {
+    border-radius: var(--kashmos-radius-sm) !important;
+    color: var(--kashmos-text-muted) !important;
+    transition: all 0.2s ease !important;
+    font-weight: 500;
+    padding: 0.6rem 0.75rem !important;
+}
+
+.fi-sidebar-item-button:hover,
+.fi-sidebar-item-button[aria-current="page"] {
+    background: rgba(210, 180, 140, 0.12) !important;
+    color: var(--kashmos-gold) !important;
+    box-shadow: inset 3px 0 0 var(--kashmos-gold) !important;
+}
+
+/* Active item */
+.fi-sidebar-item-button[aria-current="page"] {
+    background: rgba(210, 180, 140, 0.18) !important;
+    font-weight: 600;
+}
+
+/* Nav group labels */
+.fi-sidebar-group-label {
+    color: var(--kashmos-gold) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 1rem 0.75rem 0.25rem !important;
+    opacity: 0.7;
+}
+
+/* Brand / Logo area */
+.fi-sidebar-header {
+    background: var(--kashmos-bg-surface) !important;
+    border-bottom: 1px solid var(--kashmos-border) !important;
+    padding: 1rem 1.25rem !important;
+}
+
+.fi-logo {
+    color: var(--kashmos-gold) !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+}
+
+/* ───── Top Bar / Header ───── */
+.fi-topbar {
+    background: var(--kashmos-bg-surface) !important;
+    border-bottom: 1px solid var(--kashmos-border) !important;
+    box-shadow: var(--kashmos-shadow) !important;
+    backdrop-filter: blur(12px);
+}
+
+.fi-topbar-nav {
+    padding: 0 1.5rem !important;
+}
+
+/* ───── Main Content Area ───── */
+.fi-main {
+    background: var(--kashmos-bg-base) !important;
+}
+
+.fi-main-ctn {
+    padding: 1.5rem 2rem !important;
+}
+
+/* ───── Cards & Panels ───── */
+.fi-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn,
+.fi-page-header,
+.fi-card {
+    background: var(--kashmos-bg-card) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius) !important;
+    box-shadow: var(--kashmos-shadow) !important;
+    color: var(--kashmos-text) !important;
+}
+
+/* ───── Stats Overview Widget ───── */
+.fi-wi-stats-overview-stat {
+    background: var(--kashmos-bg-card) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius) !important;
+    transition: all 0.25s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    border-color: var(--kashmos-border-accent) !important;
+    box-shadow: var(--kashmos-shadow-gold), var(--kashmos-shadow) !important;
+    transform: translateY(-2px);
+}
+
+.fi-wi-stats-overview-stat-value {
+    color: var(--kashmos-gold) !important;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
+}
+
+.fi-wi-stats-overview-stat-label {
+    color: var(--kashmos-text-muted) !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+.fi-wi-stats-overview-stat-description {
+    color: var(--kashmos-text-muted) !important;
+    font-size: 0.8rem !important;
+}
+
+/* ───── Tables ───── */
+.fi-ta {
+    background: var(--kashmos-bg-card) !important;
+    border-radius: var(--kashmos-radius) !important;
+    overflow: hidden;
+}
+
+.fi-ta-header-ctn {
+    background: var(--kashmos-bg-card) !important;
+    border-bottom: 1px solid var(--kashmos-border) !important;
+    padding: 1rem 1.5rem !important;
+}
+
+.fi-ta-row {
+    border-bottom: 1px solid var(--kashmos-border) !important;
+    transition: background 0.15s !important;
+}
+
+.fi-ta-row:hover {
+    background: rgba(210, 180, 140, 0.05) !important;
+}
+
+.fi-ta-header-cell {
+    color: var(--kashmos-gold) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    background: var(--kashmos-bg-elevated) !important;
+    border-bottom: 1px solid var(--kashmos-border) !important;
+}
+
+.fi-ta-cell {
+    color: var(--kashmos-text) !important;
+    font-size: 0.9rem !important;
+    padding: 0.875rem 1.25rem !important;
+}
+
+/* ───── Buttons ───── */
+.fi-btn-primary {
+    background: var(--kashmos-gold) !important;
+    color: #140c0c !important;
+    font-weight: 700 !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 2px 8px rgba(210, 180, 140, 0.3) !important;
+    transition: all 0.2s !important;
+}
+
+.fi-btn-primary:hover {
+    background: var(--kashmos-gold-muted) !important;
+    box-shadow: var(--kashmos-shadow-gold) !important;
+    transform: translateY(-1px) !important;
+}
+
+.fi-btn-outlined,
+.fi-btn-secondary {
+    background: transparent !important;
+    border: 1px solid var(--kashmos-border-accent) !important;
+    color: var(--kashmos-gold) !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s !important;
+}
+
+.fi-btn-outlined:hover,
+.fi-btn-secondary:hover {
+    background: rgba(210, 180, 140, 0.1) !important;
+}
+
+/* ───── Forms / Inputs ───── */
+.fi-input {
+    background: var(--kashmos-bg-elevated) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius-sm) !important;
+    color: var(--kashmos-text) !important;
+    transition: border-color 0.2s !important;
+}
+
+.fi-input:focus {
+    border-color: var(--kashmos-border-accent) !important;
+    box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.15) !important;
+    outline: none !important;
+}
+
+.fi-fo-field-wrp-label {
+    color: var(--kashmos-text-muted) !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.35rem !important;
+}
+
+/* ───── Badges / Status Pills ───── */
+.fi-badge {
+    border-radius: 9999px !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    padding: 0.2rem 0.65rem !important;
+}
+
+/* ───── Modal / Overlay ───── */
+.fi-modal-ctn {
+    background: var(--kashmos-bg-card) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+.fi-modal-header {
+    border-bottom: 1px solid var(--kashmos-border) !important;
+    color: var(--kashmos-text) !important;
+}
+
+/* ───── Pagination ───── */
+.fi-pagination {
+    color: var(--kashmos-text-muted) !important;
+}
+
+.fi-pagination-item-btn {
+    color: var(--kashmos-text-muted) !important;
+    border-color: var(--kashmos-border) !important;
+    background: transparent !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.15s !important;
+}
+
+.fi-pagination-item-btn:hover,
+.fi-pagination-item-btn[aria-current="page"] {
+    background: rgba(210, 180, 140, 0.15) !important;
+    color: var(--kashmos-gold) !important;
+    border-color: var(--kashmos-gold) !important;
+}
+
+/* ───── Dropdown Menus ───── */
+.fi-dropdown-panel {
+    background: var(--kashmos-bg-elevated) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius-sm) !important;
+    box-shadow: var(--kashmos-shadow) !important;
+}
+
+.fi-dropdown-list-item-button {
+    color: var(--kashmos-text) !important;
+    transition: background 0.15s !important;
+}
+
+.fi-dropdown-list-item-button:hover {
+    background: rgba(210, 180, 140, 0.1) !important;
+    color: var(--kashmos-gold) !important;
+}
+
+/* ───── Scrollbars ───── */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--kashmos-bg-surface);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(210, 180, 140, 0.3);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(210, 180, 140, 0.5);
+}
+
+/* ───── RTL Support (Arabic) ───── */
+[dir="rtl"] .fi-sidebar {
+    border-right: none !important;
+    border-left: 1px solid var(--kashmos-border) !important;
+}
+
+[dir="rtl"] .fi-sidebar-item-button[aria-current="page"],
+[dir="rtl"] .fi-sidebar-item-button:hover {
+    box-shadow: inset -3px 0 0 var(--kashmos-gold) !important;
+}
+
+[dir="rtl"] .fi-main {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .fi-ta-header-cell,
+[dir="rtl"] .fi-ta-cell {
+    text-align: right;
+}
+
+/* ───── Dashboard Hero Banner (Welcome card) ───── */
+.kashmos-hero {
+    background: linear-gradient(
+        135deg,
+        var(--kashmos-bg-elevated) 0%,
+        #2e1a0f 100%
+    );
+    border: 1px solid var(--kashmos-border);
+    border-radius: var(--kashmos-radius);
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.kashmos-hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        rgba(210, 180, 140, 0.08) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.kashmos-hero h1 {
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--kashmos-text);
+    margin-bottom: 0.5rem;
+}
+
+.kashmos-hero h1 span {
+    font-weight: 700;
+    color: var(--kashmos-gold);
+}
+
+.kashmos-hero p {
+    color: var(--kashmos-text-muted);
+    font-size: 0.95rem;
+    max-width: 480px;
+}
+
+.kashmos-kpi-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--kashmos-border-accent);
+    border-radius: 0.85rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    min-width: 130px;
+}
+
+.kashmos-kpi-card .label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--kashmos-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.kashmos-kpi-card .value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--kashmos-text);
+}
+
+.kashmos-kpi-card .change {
+    font-size: 0.75rem;
+    color: #34d399;
+    margin-top: 0.15rem;
+}
+
+/* ───── Chart Widget ───── */
+.fi-wi-chart canvas {
+    border-radius: 0.5rem;
+}
+
+/* ───── Glassmorphism effect for specific cards ───── */
+.fi-glass {
+    background: rgba(35, 20, 20, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(210, 180, 140, 0.1) !important;
+}
+
+/* ───── Smooth page transitions ───── */
+.fi-main-ctn > * {
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ───── Section headings in forms ───── */
+.fi-section-header-heading {
+    color: var(--kashmos-gold) !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+/* ───── Notification toasts ───── */
+.fi-notifications {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+}
+
+.fi-notification {
+    background: var(--kashmos-bg-elevated) !important;
+    border: 1px solid var(--kashmos-border) !important;
+    border-radius: var(--kashmos-radius-sm) !important;
+    box-shadow: var(--kashmos-shadow) !important;
+    color: var(--kashmos-text) !important;
+}

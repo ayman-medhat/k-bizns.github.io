@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('deals', DealController::class);
     Route::post('deals', [DealController::class, 'store'])->middleware('limit:max_deals')->name('deals.store');
 
+    Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::resource('users', UserController::class);
     Route::post('users', [UserController::class, 'store'])->middleware('limit:max_users')->name('users.store');
 

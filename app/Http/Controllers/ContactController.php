@@ -17,7 +17,20 @@ class ContactController extends Controller
 
     public function index(): View
     {
-        $contacts = Contact::with('client')->latest()->paginate(10);
+        $search = request('search');
+
+        $contacts = Contact::with('client')
+            ->when($search, fn($q) => $q->where(
+                fn($inner) => $inner
+                    ->where('first_name_en', 'like', "%{$search}%")
+                    ->orWhere('last_name_en', 'like', "%{$search}%")
+                    ->orWhere('first_name_ar', 'like', "%{$search}%")
+                    ->orWhere('last_name_ar', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+            ))
+            ->latest()
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
         return view('contacts.index', compact('contacts'));
     }
@@ -118,7 +131,7 @@ class ContactController extends Controller
             'phone_country_id' => 'nullable|exists:countries,id',
             'client_id' => 'nullable|exists:clients,id',
             'nationality_id' => 'nullable|exists:countries,id',
-            'national_id' => 'nullable|string|max:20|unique:contacts,national_id,'.$contact->id,
+            'national_id' => 'nullable|string|max:20|unique:contacts,national_id,' . $contact->id,
             'passport_no' => 'nullable|string|max:20',
             'birthdate' => 'nullable|date',
             'category' => 'nullable|string|max:50',

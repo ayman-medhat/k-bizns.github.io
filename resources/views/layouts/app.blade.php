@@ -122,6 +122,39 @@
             --badge-border: #749ec9;
         }
 
+        [data-theme="night"] {
+            --bg-color: #0d0f1a;
+            --text-color: #e2e8f8;
+            --nav-bg: rgba(22, 26, 48, 0.85);
+            --nav-border: rgba(99, 82, 196, 0.35);
+            --header-bg: #1a1e38;
+            --header-border: rgba(99, 82, 196, 0.4);
+            --header-text: #e2e8f8;
+            --content-bg: rgba(20, 24, 44, 0.9);
+            --content-border: rgba(99, 82, 196, 0.25);
+            --accent-bg: rgba(99, 82, 196, 0.25);
+            --accent-text: #c4b5fd;
+            --accent-border: rgba(139, 92, 246, 0.6);
+            --nav-link-bg: transparent;
+            --nav-link-color: #c4b5fd;
+            --btn-bg: rgba(99, 82, 196, 0.3);
+            --btn-border: rgba(139, 92, 246, 0.5);
+            --btn-hover-bg: rgba(139, 92, 246, 0.4);
+            --btn-text: #e2d9ff;
+            --table-header-bg: rgba(99, 82, 196, 0.3);
+            --table-header-color: #ddd6fe;
+            --table-border: rgba(99, 82, 196, 0.3);
+            --row-hover-bg: rgba(99, 82, 196, 0.12);
+            --row-border: rgba(99, 82, 196, 0.2);
+            --title-color: #a78bfa;
+            --card-shadow: 0 10px 30px -8px rgba(99, 82, 196, 0.45), 0 0 0 1px rgba(99, 82, 196, 0.1);
+            --badge-bg: rgba(99, 82, 196, 0.2);
+            --badge-border: rgba(139, 92, 246, 0.4);
+            --glass-bg: rgba(15, 18, 36, 0.7);
+            --glass-border: rgba(139, 92, 246, 0.3);
+            color-scheme: dark;
+        }
+
         /* Mobile nav drawer */
         .mobile-menu-link {
             display: flex;
@@ -298,7 +331,11 @@
                                                 (Purple)</button>
                                             <button name="theme" value="azure"
                                                 class="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
-                                                style="color: var(--text-color);">Azure (Blue)</button>
+                                                style="color: var(--text-color); border-bottom: 1px solid var(--nav-border);">Azure
+                                                (Blue)</button>
+                                            <button name="theme" value="night"
+                                                class="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
+                                                style="color: var(--text-color);">🌙 Night (Dark)</button>
                                         </form>
                                     </div>
                                 </div>

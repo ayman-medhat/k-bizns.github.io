@@ -119,9 +119,9 @@
                             {{ __('messages.birthdate_age') }}</p>
                         <p style="color: var(--text-color); font-weight: 500;">
                             {{ $contact->birthdate ? $contact->birthdate->format('M d, Y') : __('messages.not_available') }}
-                            @if($contact->detailed_age)
+                            @if($contact->age)
                                 <span
-                                    style="opacity: 0.7; font-size: 0.85rem; margin-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 0.5rem;">({{ $contact->detailed_age }})</span>
+                                    style="opacity: 0.7; font-size: 0.85rem; margin-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 0.5rem;">({{ $contact->age }})</span>
                             @endif
                         </p>
                     </div>

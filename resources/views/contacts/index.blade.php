@@ -26,6 +26,33 @@
             </div>
         @endif
 
+        {{-- ── Search / Filter bar ── --}}
+        <form method="GET" action="{{ route('contacts.index') }}" class="mb-5">
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                <div style="position: relative; flex: 1; min-width: 200px;">
+                    <span
+                        style="position: absolute; {{ app()->getLocale() == 'ar' ? 'right' : 'left' }}: 1rem; top: 50%; transform: translateY(-50%); font-size: 1rem; opacity: 0.5; pointer-events: none;">🔍</span>
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="{{ __('messages.search_contacts') ?? 'Search contacts…' }}"
+                        style="width: 100%; padding: 0.65rem 1rem 0.65rem {{ app()->getLocale() == 'ar' ? '1rem' : '2.5rem' }}; border-radius: 999px; border: 1px solid var(--nav-border); background: var(--content-bg); color: var(--text-color); font-size: 0.9rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                        onfocus="this.style.borderColor='var(--accent-border)'"
+                        onblur="this.style.borderColor='var(--nav-border)'">
+                </div>
+                <button type="submit"
+                    style="padding: 0.65rem 1.4rem; border-radius: 999px; border: 1px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text); font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap;"
+                    onmouseover="this.style.background='var(--btn-hover-bg)';"
+                    onmouseout="this.style.background='var(--btn-bg)';">
+                    {{ __('messages.search') ?? 'Search' }}
+                </button>
+                @if(request('search'))
+                    <a href="{{ route('contacts.index') }}"
+                        style="padding: 0.65rem 1rem; border-radius: 999px; border: 1px solid var(--nav-border); background: transparent; color: var(--text-color); font-size: 0.85rem; text-decoration: none; opacity: 0.7; white-space: nowrap;"
+                        onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0.7';">✕
+                        {{ __('messages.clear') ?? 'Clear' }}</a>
+                @endif
+            </div>
+        </form>
+
         {{-- ── MOBILE: Card list ── --}}
         <div class="sm:hidden space-y-3">
             @forelse ($contacts as $contact)
@@ -65,6 +92,8 @@
                         <div>✉️ {{ $contact->email }}</div>@endif
                         @if($contact->full_phone)
                         <div>📞 {{ $contact->full_phone }}</div>@endif
+                        @if($contact->birthdate)
+                        <div>🎂 {{ $contact->birthdate->format('M d, Y') }} ({{ $contact->age }})</div>@endif
                     </div>
                 </div>
             @empty
@@ -93,6 +122,10 @@
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
                             {{ __('messages.phone') }}
+                        </th>
+                        <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
+                            style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
+                            {{ __('messages.birthdate_age') ?? __('messages.birthdate', [], app()->getLocale()) ?? 'Birthdate' }}
                         </th>
                         <th class="py-3 px-4 text-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}"
                             style="font-weight: 550; border-bottom: 2px solid var(--table-border);">
@@ -133,6 +166,10 @@
                             <td class="py-3 px-4"
                                 style="color: var(--text-color); border-bottom: 1px solid var(--row-border); opacity: 0.9;">
                                 {{ $contact->full_phone }}
+                            </td>
+                            <td class="py-3 px-4"
+                                style="color: var(--text-color); border-bottom: 1px solid var(--row-border); opacity: 0.9;">
+                                {{ $contact->birthdate ? $contact->birthdate->format('M d, Y') : '-' }}
                             </td>
                             <td class="py-3 px-4" style="border-bottom: 1px solid var(--row-border);">
                                 @if($contact->company)

@@ -78,6 +78,24 @@
                                             class="hover:opacity-80 transition-opacity">
                                             {{ __('messages.view') }}
                                         </a>
+                                        <a href="{{ route('super-admin.companies.edit', $company) }}"
+                                            style="color: var(--btn-text); background: var(--btn-bg); padding: 0.4rem 1rem; border-radius: 30px; border: 1px solid var(--btn-border);"
+                                            class="hover:opacity-80 transition-opacity">
+                                            {{ __('messages.edit') ?? 'Edit' }}
+                                        </a>
+                                        @if(stripos($company->name, 'Kashmos') === false)
+                                            <form action="{{ route('super-admin.companies.destroy', $company) }}" method="POST"
+                                                onsubmit="return confirm('{{ __('messages.are_you_sure') }}');"
+                                                class="inline m-0 p-0">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    style="color: #ef4444; background: rgba(239, 68, 68, 0.1); padding: 0.4rem 1rem; border-radius: 30px; border: 1px solid rgba(239, 68, 68, 0.2);"
+                                                    class="hover:opacity-80 transition-opacity">
+                                                    {{ __('messages.delete') }}
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -114,12 +132,29 @@
                             <span class="opacity-70">{{ __('messages.created_at') }}:</span>
                             <span>{{ $company->created_at->format('Y-m-d') }}</span>
                         </div>
-                        <div class="pt-2">
+                        <div class="pt-2 flex flex-col sm:flex-row gap-2">
                             <a href="{{ route('super-admin.companies.show', $company) }}"
-                                style="color: var(--accent-text); background: var(--accent-bg); display: block; text-align: center; padding: 0.75rem; border-radius: 1rem; font-weight: 500; border: 1px solid var(--accent-border);"
+                                style="color: var(--accent-text); background: var(--accent-bg); flex: 1; text-align: center; padding: 0.75rem; border-radius: 1rem; font-weight: 500; border: 1px solid var(--accent-border);"
                                 class="hover:opacity-80 transition-opacity">
                                 {{ __('messages.view') }}
                             </a>
+                            <a href="{{ route('super-admin.companies.edit', $company) }}"
+                                style="color: var(--btn-text); background: var(--btn-bg); flex: 1; text-align: center; padding: 0.75rem; border-radius: 1rem; font-weight: 500; border: 1px solid var(--btn-border);"
+                                class="hover:opacity-80 transition-opacity">
+                                {{ __('messages.edit') ?? 'Edit' }}
+                            </a>
+                            @if(stripos($company->name, 'Kashmos') === false)
+                                <form action="{{ route('super-admin.companies.destroy', $company) }}" method="POST"
+                                    onsubmit="return confirm('{{ __('messages.are_you_sure') }}');" class="flex-1">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        style="color: #ef4444; background: rgba(239, 68, 68, 0.1); width: 100%; text-align: center; padding: 0.75rem; border-radius: 1rem; font-weight: 500; border: 1px solid rgba(239, 68, 68, 0.2);"
+                                        class="hover:opacity-80 transition-opacity">
+                                        {{ __('messages.delete') }}
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 @endforeach
